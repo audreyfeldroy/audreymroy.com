@@ -1,0 +1,56 @@
+{% extends "base_article.html" %}
+
+{% block article %}
+<h2>How to Deploy a Static HTML Website to an Amazon S3 Bucket</h2>
+
+<h3>Create the Buckets</h3>
+
+<p>First, sign into <a href="https://console.aws.amazon.com/s3/">console.aws.amazon.com/s3/</a>.</p>
+
+<p>Create 2 buckets by clicking [Create Bucket]:</p>
+
+<ul>
+    <li>www.yourdomain.com</li>
+    <li>yourdomain.com</li>
+</ul>
+
+<p>For the buckets' region, pick the location closest to yourself, or to where you think you'll get the most traffic to your website.</p>
+
+<h3>Set up Naked Domain Redirect Bucket</h3>
+
+<p>Select the <strong>yourdomain.com</strong> bucket. Click [Properties] to view the bucket properties.</p>
+
+<p>Expand the "Static Website Hosting" section. Choose the "Redirect all requests to another host name" option. Under "Redirect all requests to:", enter <strong>www.yourdomain.com</strong>.</p>
+
+<h3>Upload the Files</h3>
+
+<p>You can do this through the S3 console, but the interface is extremely painful to use. It's easier to do it at the command line with a little tool called "alotofeffort".</p>
+
+<p>Follow the installation and configuration instructions in the <a href="https://github.com/audreyr/alotofeffort#quickstart">alotofeffort Quickstart</a>.</p>
+
+<p>Then deploy to the www.yourdomain.com bucket at the command line like this:</p>
+
+<code>$ alotofeffort www/ www.yourdomain.com</code>
+
+<h3>Visit the New Website</h3>
+
+<p>Go to the URL that <strong>alotofeffort</strong> printed out when it finished uploading. Your website should be there.</p>
+
+<h3>Update DNS Settings</h3>
+
+<p>Add this CNAME record to your DNS settings:</p>
+
+<code>www -> www.yourdomain.com.s3-website-(your region here).amazonaws.com</code>
+
+<p>Note that the URL should be the one that alotofeffort printed out earlier.</p>
+
+<h3>Set up Naked Domain Forwarder</h3>
+
+<p>Most domain registrars offer free domain name forwarding. Click around in your domain registrar's dashboard until you find the "Forwarding" setting for yourdomain.com.</p>
+
+<p>For example, on GoDaddy the domain forwarding setting <a href="http://stackoverflow.com/questions/11492563/heroku-godaddy-send-naked-domain-to-www">looks like this</a>.</p>
+
+<h3>Try out the Website</h3>
+
+<p>Last but not least, go to <strong>yourdomain.com</strong> in a web browser and see if it's up yet! The DNS and forwarder settings may take up to 48 hours to propagate, so be patient.</p>
+{% endblock %}
