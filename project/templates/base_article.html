@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span10">
+            {% block article %}
+            {% endblock %}
+        </div>
+
+        <div class="offset1 span5">
+            <h2>Hi</h2>
+            <p>
+                You are reading the writings of Audrey M. Roy: artist, designer, and programmer.
+            </p>
+
+            <h3>Follow for updates</h3>
+            <p>
+                Probably the easiest way to keep up with my updates is to follow
+                <a href="https://github.com/audreyr/audreymroy.com/">the repo for audreymroy.com</a> on GitHub.
+            </p>
+
+            <h4>Social</h4>
+            <p>
+                GitHub: <a href="https://github.com/audreyr/">@audreyr</a>
+            </p>
+            <p>
+                Twitter: <a href="http://twitter.com/audreyr">@audreyr</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

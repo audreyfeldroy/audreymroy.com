@@ -1,0 +1,77 @@
+{% extends "base_article.html" %}
+
+{% block article %}
+<h2>How to Optimize Large Image Files for the Web, the Command Line Way</h2>
+
+<p><span>Note: this post originally appeared on my old blog in May 2010. I refer to it so much that I&#8217;ve decided to repost it here for quick reference. Hopefully others will benefit from it just as much.</span></p>
+
+<p>I use Inkscape to draw all my vector graphics nowadays. Inkscape has a &#8220;Export Bitmap&#8221; feature (analogous to Photoshop/Illustrator&#8217;s &#8220;Save For Web&#8221;) that lets you export PNGs, but it&#8217;s pretty basic (I assume by design).</p>
+
+<p>But what do you do once you&#8217;ve got that 400k Twitter background .png file exported from Inkscape?</p>
+
+<p>Or what if you want to do better than the image compression options in Adobe Photoshop or Illustrator, or even the GIMP? Here are 2 decent options, assuming you&#8217;re starting with a lossless PNG file:</p>
+
+<ul>
+<li>optimize the PNG by throwing out unused data and reducing colors</li>
+
+<li>convert it to a lossy JPEG (hopefully not too lossy, eek) GIF is not really an option now that PNG files are well-supported, unless you&#8217;re making lovely dancing animated GIFs.</li>
+</ul>
+
+<p>BMP? TGA? Other formats? These aren&#8217;t good for web graphics. It&#8217;s 2010, and web-suited bitmaps are JPG, PNG, GIF.</p>
+
+<p>Side note: I hope vector formats like SVG will be more supported by web applications (e.g. as Twitter avatars and background designs) in the near future, but it&#8217;s a steep uphill battle. I don&#8217;t think it&#8217;ll happen until cameras are capable of taking vector photos.</p>
+
+<h2 id='the_starting_image'>The starting image</h2>
+
+<p>Before trying either option, here&#8217;s the image that I began with. This is the PNG that Inkscape generated via Export Bitmap:</p>
+
+<p>Example 0: The starting PNG image:</p>
+
+<p><img alt='Example image 0' src='/img/blog/optimize-images-ex0.png' /></p>
+
+<h2 id='option_1_shrinking_the_png_into_a_smaller_png'>Option 1: Shrinking the PNG into a smaller PNG</h2>
+
+<p>I used OptiPNG to trim the useless data, shrinking my file from 389k to 318k. This step doesn&#8217;t lose any image data. $ sudo apt-get install optipng $ optipng twitter_bg.png</p>
+
+<p>In particular, OptiPNG trimmed the alpha data from my PNG, which didn&#8217;t have any transparency. These were just wasted bytes.</p>
+
+<p>Then, I used Pngnq to quantize the image. In other words, to decrease the number of colors in the image to an optimized smaller set of colors.</p>
+
+<p>(Photoshop and Illustrator let you choose the number of colors in the &#8220;Save To Web&#8221; tool. Here we are doing the same thing manually.)</p>
+
+<p>$ sudo apt-get install pngnq $ pngnq -n 256 -s 1 -e b.png twitter_bg.png</p>
+
+<p>The parameters I chose here are: -n 256: 256 colors, which is the max resulting palette in pngnq. Less than that would be too little to do my gradients justice. -s 1: Sample every pixel during its palette-picking algorithm. The default is 3, but I found that s=1 improved certain parts of my image drastically. The only drawback is a slightly longer wait (a couple seconds longer for my image). This 256-color quantization can look pretty drastic if you&#8217;ve got a lot of gradients, as was my case. But it shrunk my 318k PNG down to a tiny 99k. Here&#8217;s the resulting image:</p>
+
+<p>Example 1: The stripped and color-quantized resulting PNG image:</p>
+
+<p><img alt='Example image 1' src='/img/blog/optimize-images-ex1.png' /></p>
+
+<h2 id='option_2_converting_the_png_to_a_jpeg_lossily'>Option 2: Converting the PNG to a JPEG, lossily</h2>
+
+<p>You can convert from PNG to JPEG using GIMP if you&#8217;re more comfortable with a GUI than with the command line. You have less control over the way the result looks, but it&#8217;s often good enough for web viewing purposes.</p>
+
+<p>I don&#8217;t know what&#8217;s under the hood of the GIMP, and googling it for a few minutes didn&#8217;t tell me. Supposedly resizing images downward in GIMP isn&#8217;t as good as you can get with the right parameters in ImageMagick. But this is just a rumor. If I remember to look into it when I have some free time, I will. Who knows, GIMP might even be using ImageMagick for downscaling.</p>
+
+<p>Anyhow, you probably have ImageMagick installed already (unless you&#8217;re on Windows, then you probably want to install it through Cygwin), so just go ahead: $ convert -compress JPEG -quality 87 twitter_bg.png twitter_bg.jpg</p>
+
+<p>I found that 87% compression was the lowest I could deal with. But even that gave me a 187k image, and that was with enough blurriness to be mildly noticeable. Note the artifacts in the rainbow bands.</p>
+
+<p>Example 2: The lossily-compressed (87%) resulting JPEG image:</p>
+
+<p><img alt='Example image 2' src='/img/blog/optimize-images-ex2.png' /></p>
+
+<p>I&#8217;d rather give up colors and have zero blurriness than keep all the colors and have mild blurriness. Which is why I went with PNG color quantization in the end.</p>
+
+<p>ImageMagick gives you a lot of other compression options. I tried compressing to various degrees using JPEG2000 rather than JPEG compression, but I didn&#8217;t notice enough improvement one way or another. JPEG compression just looks bad when you&#8217;re dealing with vector graphics or text. You need those crisp edges. Lossy JPEG is more of a photo type of compression.</p>
+
+<h2 id='summary'>Summary</h2>
+
+<p>There, I&#8217;ve written up as much as I could about the 2 options that were reasonable to me. Pick option 1 if you&#8217;re dealing with bitmaps exported from Inkscape or other vector graphics.</p>
+
+<p>But try option 2 if you&#8217;re okay with some blurriness due to lossy compression artifacts.</p>
+
+<p>Not all image compression is the same! It&#8217;s worth experimenting with various image compression tools and libraries.</p>
+
+<p>And if you try them all and still hope for better compression or quality, do some research on image processing libraries, image compression algorithms, and a little coding :)</p>
+{% endblock %}

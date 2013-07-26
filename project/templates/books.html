@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="span16">
+        <h1>Books that I've written.</h1>
+        <p>These are available through Amazon.com.</p>
+    </div>
+</div>
+
+<hr/>
+
+<!-- Top row of columns -->
+<div class="row prepend-top2">
+    <div class="span6">
+        <h2>Two Scoops of Django</h2>
+        <p>A book about best practices for using the Django web framework. Covers Django 1.5.</p>
+        <p>Co-authored with <a href="http://twitter.com/pydanny">Daniel Greenfeld</a>.</p>
+        <p><a class="btn" href="https://django.2scoops.org/">Learn more &raquo;</a></p>
+    </div>
+
+    <div class="span10">
+        <a href="https://django.2scoops.org"><img src="/img/two-scoops/django-cover-medium.png" /></a>
+    </div>
+</div>
+
+<hr/>
+
+<div class="row prepend-top2">
+    <div class="span6">
+        <h2>A Very Magical Caterpillar Tale</h2>
+        <p>An illustrated, scientifically-accurate children's book about the butterfly life cycle.</p>
+        <p><a class="btn" href="http://www.amazon.com/Very-Magical-Caterpillar-Tale-Butterfly/dp/1453714081?tag=cn-001-20">Learn more &raquo;</a></p>
+    </div>
+
+    <div class="span10">
+        <a href="http://www.amazon.com/Very-Magical-Caterpillar-Tale-Butterfly/dp/1453714081?tag=cn-001-20"><img src="/img/caterpillar-book/caterpillar_tale_cover.jpg" ></a>
+    </div>
+</div>
+{% endblock %}
