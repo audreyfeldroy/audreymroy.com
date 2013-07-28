@@ -12,7 +12,7 @@ text {
 }
 </style>
 
-<svg width="960" height="500"></svg>
+<svg width="1200" height="500"></svg>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script>
@@ -26,10 +26,10 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
     .data(json)
     .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.days * 40 + "," + 250 + ")"; });
+      .attr("transform", function(d) { return "translate(" + d.days * 30 + "," + 250 + ")"; });
 
   node.append("circle")
-    .attr("r", function(d) { return d.days * 6; });
+    .attr("r", function(d) { return d.days * 8; });
     
   node.append("text")
     .style("text-anchor", "middle")
