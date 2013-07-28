@@ -1,0 +1,38 @@
+[
+    {
+        "city": "Barcelona",
+        "days": 9
+    },
+    {
+        "city": "Warsaw",
+        "days": 16
+    },
+    {
+        "city": "Krakow",
+        "days": 16
+    },
+    {
+        "city": "Dynow",
+        "days": 4
+    },
+    {
+        "city": "Katowice",
+        "days": 2
+    },
+    {
+        "city": "Florence",
+        "days": 35
+    },
+    {
+        "city": "Bologna",
+        "days": 8
+    },
+    {
+        "city": "Ljubljana",
+        "days": 3
+    },
+    {
+        "city": "Zagreb",
+        "days": 36
+    }
+]

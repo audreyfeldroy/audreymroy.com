@@ -1,0 +1,26 @@
+{% extends "base_minimal.html" %}
+
+{% block article %}
+<h2>Map</h2>
+
+<style>
+
+path {
+  fill: #ccc;
+  stroke: #fff;
+}
+
+</style>
+<svg width="960" height="500"></svg>
+<script src="http://d3js.org/d3.v2.js?2.9.1"></script>
+<script>
+
+d3.json("/js/d3/readme.json", function(collection) {
+  d3.select("svg").selectAll("path")
+      .data(collection.features)
+    .enter().append("path")
+      .attr("d", d3.geo.path().projection(d3.geo.albersUsa()));
+});
+
+</script>
+{% endblock %}
