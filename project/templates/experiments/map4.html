@@ -13,6 +13,10 @@
   fill: #222;
 }
 
+.active {
+  fill: orange;
+}
+
 .boundary {
   fill: none;
   stroke: #fff;
@@ -51,7 +55,8 @@ d3.json("/js/d3/world-50m.json", function(error, world) {
   svg.insert("path", ".graticule")
       .datum(topojson.feature(world, world.objects.land))
       .attr("class", "land")
-      .attr("d", path);
+      .attr("d", path)
+      .on("click", clicked);
 
   svg.insert("path", ".graticule")
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
@@ -61,6 +66,10 @@ d3.json("/js/d3/world-50m.json", function(error, world) {
 
 d3.select(self.frameElement).style("height", height + "px");
 
+function clicked(d) {
+  d.selectAll("path")
+      .classed("active");
+  }
 </script>
 
 <p>Adapted from <a href="http://bl.ocks.org/mbostock/3757132">http://bl.ocks.org/mbostock/3757132</a>.</p>

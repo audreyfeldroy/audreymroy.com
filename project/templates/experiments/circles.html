@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Circles</title>
+
+<style>
+circle {
+  fill: #ccc;
+  stroke: #999;
+}
+</style>
+
+<svg width="960" height="500"></svg>
+
+<script src="http://d3js.org/d3.v2.js?2.9.1"></script>
+<script>
+
+d3.json("/js/d3/circles.json", function(collection) {
+  d3.select("svg").selectAll("circle")
+      .data(collection)
+    .enter().append("circle")
+    .attr("cy", 90)
+    .attr("cx", String)
+    .attr("r", Math.sqrt);
+});
+
+// var circle = svg.selectAll("circle")
+//     .data([32, 57, 293], String);
+// 
+// circle.enter().append("circle")
+//     .attr("cy", 90)
+//     .attr("cx", String)
+//     .attr("r", Math.sqrt);
+// 
+// circle.exit().remove()
+
+</script>

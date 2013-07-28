@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Days Per City</title>
+
+<style>
+circle {
+  fill: #ccc;
+  stroke: #999;
+}
+</style>
+
+<svg width="960" height="500"></svg>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+var data;
+d3.json("/js/d3/days-per-city.json", function(error, json) {
+  if (error) return console.warn(error);
+  data = json;
+  
+  console.log("Dataset is: " + data);
+  d3.select("svg").selectAll("circle")
+    .data(json)
+    .enter().append("circle")
+      .attr("cy", 250)
+      .attr("cx", function(d) { return d.days * 40; })
+      .attr("r", function(d) { return d.days * 6; })
+      .text(function(d) { return d.city; });
+});
+
+</script>
