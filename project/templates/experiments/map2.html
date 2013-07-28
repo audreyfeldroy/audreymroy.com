@@ -1,8 +1,6 @@
-{% extends "base_minimal.html" %}
-
-{% block article %}
-<h2>Map</h2>
-
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Albers Projection</title>
 <style>
 
 path {
@@ -15,7 +13,7 @@ path {
 <script src="http://d3js.org/d3.v2.js?2.9.1"></script>
 <script>
 
-d3.json("readme.json", function(collection) {
+d3.json("/js/d3/readme.json", function(collection) {
   d3.select("svg").selectAll("path")
       .data(collection.features)
     .enter().append("path")
@@ -23,4 +21,3 @@ d3.json("readme.json", function(collection) {
 });
 
 </script>
-{% endblock %}
