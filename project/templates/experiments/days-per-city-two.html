@@ -46,7 +46,7 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
     
   node.append("text")
     .style("text-anchor", "middle")
-    .text(function(d) { return d.city; });
+    .text(function(d) { return d.className.substring(0, d.r / 3); });
 });
 
 // Returns a flattened hierarchy containing all leaf nodes under the root.
