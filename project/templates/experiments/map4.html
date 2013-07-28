@@ -2,6 +2,12 @@
 
 {% block content %}
 
+<h2>Map</h2>
+
+<svg width="940" height="390"></svg>
+
+<p>Adapted from <a href="http://bl.ocks.org/mbostock/3757132">http://bl.ocks.org/mbostock/3757132</a>.</p>
+
 <style>
 
 .graticule {
@@ -26,7 +32,7 @@
 }
 
 </style>
-<body>
+
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
@@ -44,9 +50,7 @@ var path = d3.geo.path()
 
 var graticule = d3.geo.graticule();
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+var svg = d3.select("svg");
 
 svg.append("path")
     .datum(graticule)
@@ -73,7 +77,5 @@ function clicked(d) {
       .classed("active");
   }
 </script>
-
-<p>Adapted from <a href="http://bl.ocks.org/mbostock/3757132">http://bl.ocks.org/mbostock/3757132</a>.</p>
 
 {% endblock %}
