@@ -1,6 +1,12 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Days Per City</title>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Days Per City</h2>
+
+<svg width="940" height="500"></svg>
+
+<p>Adapted from <a href="http://bl.ocks.org/mbostock/4063269">http://bl.ocks.org/mbostock/4063269</a>.</p>
 
 <style>
 circle {
@@ -10,8 +16,6 @@ text {
   font: 10px sans-serif;
 }
 </style>
-
-<svg width="1200" height="500"></svg>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script>
@@ -26,7 +30,7 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
     .data(json)
     .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.days * 30 + "," + 250 + ")"; });
+      .attr("transform", function(d) { return "translate(" + d.days * 20 + "," + 250 + ")"; });
 
   node.append("circle")
     .attr("r", function(d) { return d.days * 8; })
@@ -39,4 +43,4 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
 
 </script>
 
-<p>Note: This is largely based on <a href="http://bl.ocks.org/mbostock/4063269">http://bl.ocks.org/mbostock/4063269</a>, from which I learned a lot.</p>
+{% endblock %}
