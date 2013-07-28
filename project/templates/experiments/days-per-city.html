@@ -7,6 +7,9 @@ circle {
   fill: #ccc;
   stroke: #999;
 }
+text {
+  font: 10px sans-serif;
+}
 </style>
 
 <svg width="960" height="500"></svg>
@@ -29,7 +32,10 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
     .attr("r", function(d) { return d.days * 6; });
     
   node.append("text")
+    .style("text-anchor", "middle")
     .text(function(d) { return d.city; });
 });
 
 </script>
+
+<p>Note: This is largely based on <a href="http://bl.ocks.org/mbostock/4063269">http://bl.ocks.org/mbostock/4063269</a>, from which I learned a lot.</p>
