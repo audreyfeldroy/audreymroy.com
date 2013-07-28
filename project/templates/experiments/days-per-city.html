@@ -4,8 +4,7 @@
 
 <style>
 circle {
-  fill: #ccc;
-  stroke: #999;
+  stroke: #666;
 }
 text {
   font: 10px sans-serif;
@@ -17,6 +16,7 @@ text {
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script>
 var data;
+var color = d3.scale.category20c();
 d3.json("/js/d3/days-per-city.json", function(error, json) {
   if (error) return console.warn(error);
   data = json;
@@ -29,7 +29,8 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
       .attr("transform", function(d) { return "translate(" + d.days * 30 + "," + 250 + ")"; });
 
   node.append("circle")
-    .attr("r", function(d) { return d.days * 8; });
+    .attr("r", function(d) { return d.days * 8; })
+    .style("fill", function(d) { return color(d.city); });
     
   node.append("text")
     .style("text-anchor", "middle")
