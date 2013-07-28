@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
+{% extends "base.html" %}
+
+{% block content %}
+
 <style>
 
 .graticule {
@@ -29,7 +31,7 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
 
-var width = 960,
+var width = 940,
     height = 390;
 
 var projection = d3.geo.mercator()
@@ -73,3 +75,5 @@ function clicked(d) {
 </script>
 
 <p>Adapted from <a href="http://bl.ocks.org/mbostock/3757132">http://bl.ocks.org/mbostock/3757132</a>.</p>
+
+{% endblock %}
