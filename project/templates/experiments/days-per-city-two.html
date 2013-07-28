@@ -13,7 +13,7 @@ circle {
   stroke: #666;
 }
 text {
-  font: 10px sans-serif;
+  font: 13px sans-serif;
 }
 </style>
 
@@ -21,7 +21,7 @@ text {
 <script>
 var data;
 var diameter = 940;
-var color = d3.scale.category20c();
+var color = d3.scale.category20();
 
 var bubble = d3.layout.pack()
     .sort(null)
@@ -42,11 +42,11 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
 
   node.append("circle")
     .attr("r", function(d) { return d.r; })
-    .style("fill", function(d) { return color(d.city); });
+    .style("fill", function(d) { return color(d.packageName); });
     
   node.append("text")
     .style("text-anchor", "middle")
-    .text(function(d) { return d.className.substring(0, d.r / 3); });
+    .text(function(d) { return d.className.substring(0, d.r / 3) + " (" + d.value + ")"; });
 });
 
 // Returns a flattened hierarchy containing all leaf nodes under the root.
