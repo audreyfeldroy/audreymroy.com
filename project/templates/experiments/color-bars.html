@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Color Bars</h2>
+
+<svg width="940" height="300"></svg>
+
+<style>
+text {
+  font: 10px sans-serif;
+}
+</style>
+
+<script src="/js/d3/d3.v3.min.js" charset="utf-8"></script>
+<script src="/js/d3/colorbrewer.v1.min.js"></script>
+<script>
+function map_days_to_spectral(days) {
+  var colors = colorbrewer.Spectral[11];
+  var spectral_index = Math.floor(days / 2);
+  if (spectral_index > 10) {
+    spectral_index = 10;
+  }
+  return colors[spectral_index];
+}
+var data;
+d3.json("/js/d3/days-per-city.json", function(error, json) {
+  if (error) return console.warn(error);
+  data = json;
+  var bar = d3.select("svg").selectAll(".bar")
+    .data(json)
+    .enter().append("g")
+      .attr("class", "bar");
+
+  bar.append("rect")
+    .attr("x", function(d) { return data.indexOf(d) * 75 + 50 })
+    .attr("y", 0)
+    .attr("width", 10)
+    .attr("height", function(d) { return d.days * 5 })
+    .style("fill", function(d) { return map_days_to_spectral(d.days) });
+    
+  bar.append("text")
+    .style("text-anchor", "end")
+    .attr("x", function(d) { return data.indexOf(d) * 75 + 50})
+    .attr("y", function(d) { return d.days * 5 })
+    .text(function(d) { return d.city });
+});
+
+</script>
+{% endblock %}
