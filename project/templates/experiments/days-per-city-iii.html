@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Days Per City III</h2>
+
+<svg width="940" height="940"></svg>
+
+<p>Adapted from <a href="http://bl.ocks.org/mbostock/4063269">http://bl.ocks.org/mbostock/4063269</a>.</p>
+
+<style>
+circle {
+  stroke: #666;
+}
+text {
+  font: 13px sans-serif;
+}
+</style>
+
+<script src="/js/d3/d3.v3.min.js" charset="utf-8"></script>
+<script>
+var data;
+var diameter = 940;
+var color = d3.scale.category20();
+
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(1.5);
+
+d3.json("/js/d3/days-per-city.json", function(error, json) {
+  if (error) return console.warn(error);
+  data = json;
+  
+  console.log("Dataset is: " + data);
+  var node = d3.select("svg").selectAll(".node")
+    .data(bubble.nodes(classes(json))
+      .filter(function(d) { return !d.children; }))
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  node.append("circle")
+    .attr("r", function(d) { return d.r; })
+    .style("fill", function(d) { return color(d.packageName); });
+    
+  node.append("text")
+    .style("text-anchor", "middle")
+    .text(function(d) { return d.className.substring(0, d.r / 3) + " (" + d.value + ")"; });
+});
+
+// Returns a flattened hierarchy containing all leaf nodes under the root.
+function classes(json) {
+  var classes = [];
+  
+  json.forEach(function(node) { classes.push({packageName: node.city, className: node.city, value: node.days})});
+
+  return {children: classes};
+}
+</script>
+
+{% endblock %}
