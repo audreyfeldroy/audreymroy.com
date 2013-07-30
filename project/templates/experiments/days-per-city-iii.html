@@ -4,9 +4,9 @@
 
 <h2>Days Per City III</h2>
 
-<svg width="940" height="940"></svg>
+<svg width="940" height="780"></svg>
 
-<p>Adapted from <a href="http://bl.ocks.org/mbostock/4063269">http://bl.ocks.org/mbostock/4063269</a>.</p>
+<p>Uses the spectral scale from <a href="http://bl.ocks.org/mbostock/5577023">http://bl.ocks.org/mbostock/5577023</a>.</p>
 
 <style>
 circle {
@@ -18,15 +18,24 @@ text {
 </style>
 
 <script src="/js/d3/d3.v3.min.js" charset="utf-8"></script>
+<script src="/js/d3/colorbrewer.v1.min.js"></script>
 <script>
 var data;
 var diameter = 940;
-var color = d3.scale.category20();
 
 var bubble = d3.layout.pack()
     .sort(null)
     .size([diameter, diameter])
     .padding(1.5);
+    
+function map_days_to_spectral(days) {
+  var colors = colorbrewer.Spectral[11];
+  var spectral_index = Math.floor(days / 2);
+  if (spectral_index > 10) {
+    spectral_index = 10;
+  }
+  return colors[spectral_index];
+}
 
 d3.json("/js/d3/days-per-city.json", function(error, json) {
   if (error) return console.warn(error);
@@ -42,8 +51,8 @@ d3.json("/js/d3/days-per-city.json", function(error, json) {
 
   node.append("circle")
     .attr("r", function(d) { return d.r; })
-    .style("fill", function(d) { return color(d.packageName); });
-    
+    .style("fill", function(d) { return map_days_to_spectral(d.value); });
+
   node.append("text")
     .style("text-anchor", "middle")
     .text(function(d) { return d.className.substring(0, d.r / 3) + " (" + d.value + ")"; });
