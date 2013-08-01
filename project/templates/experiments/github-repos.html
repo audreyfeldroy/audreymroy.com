@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>GitHub Repos</h2>
+
+<svg width="940" height="300"></svg>
+
+<style>
+text {
+  font: 10px sans-serif;
+}
+</style>
+
+<script src="/js/d3/d3.v3.min.js" charset="utf-8"></script>
+<script src="/js/d3/jsonp.js"></script>
+<script>
+var data;
+function calc_y(d) {
+  return data.indexOf(d) * 75 + 50;
+}
+d3.json("https://api.github.com/users/audreyr/repos", function(json) {
+  data = json;
+  var bar = d3.select("svg").selectAll(".bar")
+    .data(json)
+    .enter().append("g")
+      .attr("class", "bar");
+
+    bar.append("rect")
+      .attr("x", 20)
+      .attr("y", calc_y)
+      .attr("width", function(d) { return d.watchers_count * 5 })
+      .attr("height", 10)
+      .style("fill", function(d) { return '#000000' });
+      
+    bar.append("text")
+      .style("text-anchor", "start")
+      .attr("x", 20)
+      .attr("y", calc_y)
+      .text(function(d) { return d.name });
+});
+</script>
+{% endblock %}
