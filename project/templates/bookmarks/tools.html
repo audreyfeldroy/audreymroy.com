@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Tools</h2>
+
+<p>Useful, browser-based design and development tools:</p>
+
+{% for tool in tools %}
+  <h3><a href="{{ tool.url }}">{{ tool.title }}</a> by {{ tool.author }}</h3>
+  <p>{{ tool.description }}</p>
+{% endfor %}
+{% endblock %}
