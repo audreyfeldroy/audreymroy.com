@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Videos</h2>
+
+<p>Take a moment to watch these:</p>
+
+{% for video in videos %}
+  <h3><a href="{{ video.url }}">{{ video.title }}</a> by {{ video.author }}</h3>
+  <p>{{ video.description }}</p>
+{% endfor %}
+{% endblock %}
