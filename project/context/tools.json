@@ -1,8 +1,20 @@
 [
   {
+    "title": "A Most Excellent HSL Color Picker",
+    "author": "Brandon Mathis",
+    "description": "Best HSL colorpicker I've found.",
+    "url": "http://mothereffinghsl.com/"
+  },
+  {
     "title": "Mother-effing hsl()",
     "author": "Paul Irish",
-    "description": "HSL colorpicker.",
+    "description": "Another HSL colorpicker.",
     "url": "http://mothereffinghsl.com/"
+  },
+  {
+    "title": "CSS Deck",
+    "author": "Rishabh",
+    "description": "CSS prototyping bin.",
+    "url": "http://cssdeck.com/"
   }
 ]
