@@ -11,7 +11,7 @@ It's made with the `Complexity`_ static site generator.
 
 Try out the code for `audreymroy.com`_ locally::
 
-    $ pip install complexity
+    $ pip install complexity==0.6
     $ git clone git@github.com:audreyr/audreymroy.com.git
     $ cd audreymroy.com
     $ complexity project/ www/
