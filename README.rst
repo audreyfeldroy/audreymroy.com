@@ -24,6 +24,9 @@ Then view the website at http://127.0.0.1:9090/.
 Deployment
 ----------
 
+Make sure `~/.boto` is configured with the correct AWS access key/secret.
+See https://github.com/audreyr/alotofeffort#quickstart
+
 To copy the generated website to an Amazon S3 bucket::
 
     $ alotofeffort www/ www.audreyr.com
