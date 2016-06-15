@@ -19,7 +19,7 @@ Try out the code for `audreymroy.com`_ locally::
 Then view the website at http://127.0.0.1:9090/.
     
 .. _`audreymroy.com`: http://audreymroy.com/
-.. _`Complexity`: http://complexity.readthedocs.org/
+.. _`Complexity`: https://complexity.readthedocs.io/
 
 Deployment
 ----------
